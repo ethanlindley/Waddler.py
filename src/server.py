@@ -1,5 +1,6 @@
-from core.logger import Logger
-from core.data_handler import DataHandler
+from src.logger import Logger
+from src.core.data_handler import DataHandler
+from src.core.penguin import Penguin
 import socket
 import sys
 
@@ -33,14 +34,15 @@ class Server(object):
             if len(self.penguins) >= self.max_penguins:
                 client.close()
             self.logger.debug("new connection from {}".format(addr))
+            penguin = Penguin(self, client)
             try:
                 data = client.recv(4096).decode("utf-8")
                 if data[0] == "<":
                     self.logger.debug("received XML packet - {}".format(data))
-                    self.data_handler.handle_xml(data)
+                    self.data_handler.handle_xml(penguin, data)
                 elif data[0] == "%":
                     self.logger.debug("received RAW packet - {}".format(data))
-                    self.data_handler.handle_raw(data)
+                    self.data_handler.handle_raw(penguin, data)
                 else:
                     self.logger.debug("received rogue packet - {}".format(data))
             finally:

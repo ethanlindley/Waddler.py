@@ -1,4 +1,4 @@
-from core.server import Server
+from src.server import Server
 import sys
 import json
 
