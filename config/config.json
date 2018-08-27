@@ -1,0 +1,13 @@
+{
+	"1": {
+        "type": "login",
+		"port": 6112
+	},
+	"100": {
+        "type": "world",
+		"name": "Waddler",
+		"host": "127.0.0.1",
+		"port": 6113,
+		"max_penguins": 150
+    }
+}
