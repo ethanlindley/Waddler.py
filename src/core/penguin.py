@@ -10,4 +10,5 @@ class Penguin(object):
 
     def send(self, data):
         if self.socket:
-            self.socket.sendall(data + "\0")
+            self.logger.debug("sending packet with data - {} - to client".format(data))
+            self.socket.sendall(data.encode("utf-8"))

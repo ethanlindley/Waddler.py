@@ -8,5 +8,5 @@ with open("./config/config.json", "r") as data:
 
 server_id = sys.argv[1]
 
-login = Server(config[str(server_id)])
-login.start_server()
+server = Server(config[str(server_id)])
+server.start_server()

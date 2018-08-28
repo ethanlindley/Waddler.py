@@ -1,8 +1,9 @@
+import socket
+import sys
+
 from src.logger import Logger
 from src.core.data_handler import DataHandler
 from src.core.penguin import Penguin
-import socket
-import sys
 
 
 class Server(object):
@@ -36,7 +37,8 @@ class Server(object):
             self.logger.debug("new connection from {}".format(addr))
             penguin = Penguin(self, client)
             try:
-                data = client.recv(4096).decode("utf-8")
+                data = client.recv(512).decode("utf-8")
+                self.logger.debug(data)
                 if data[0] == "<":
                     self.logger.debug("received XML packet - {}".format(data))
                     self.data_handler.handle_xml(penguin, data)

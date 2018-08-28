@@ -1,5 +1,4 @@
 from src.logger import Logger
-import xml.etree.ElementTree as ET
 
 
 class DataHandler(object):
@@ -9,8 +8,10 @@ class DataHandler(object):
         self.server = server
 
     def handle_xml(self, penguin, data):
-        if data == "<policy-file-request/>":
+        if "policy-file-request" in data:
             penguin.send("<cross-domain-policy><allow-access-from domain='*' to-ports='*' /></cross-domain-policy>")
+        elif "verChk" in data and "v='153'" in data:
+            penguin.send("<msg t='sys'><body action='apiOK' r='0'></body></msg>")
         else:
             self.logger.warning("don't know how to handle packet - {}".format(data))
 
